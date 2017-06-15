@@ -1,6 +1,7 @@
 package app.coolweather.com.coolweathernew.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +15,7 @@ import app.coolweather.com.coolweathernew.db.Province;
  * Created by feikuang on 6/13/17.
  */
 public class Utility {
+    public static final String TAG = "Utility";
     /**
      * 解析和处理服务器返回的省级数据
      */
@@ -23,6 +25,7 @@ public class Utility {
                 JSONArray allProvinces = new JSONArray(response);
                 for (int i = 0; i < allProvinces.length(); i++){
                     JSONObject provinceObject = allProvinces.getJSONObject(i);
+
                     Province province = new Province();
                     province.setProvinceName(provinceObject.getString("name"));
                     province.setProvinceCode(provinceObject.getInt("id"));
@@ -40,11 +43,13 @@ public class Utility {
      * 解析和处理服务器返回的市级数据
      */
     public static boolean handleCityResponse(String response, int provinceId){
+        Log.i(TAG,"city_Json"+response);
         if(!TextUtils.isEmpty(response)){
             try {
                 JSONArray allCities = new JSONArray(response);
                 for(int i = 0; i < allCities.length(); i++){
                     JSONObject cityObject = allCities.getJSONObject(i);
+                    Log.i(TAG,"city_Json"+cityObject);
                     City city = new City();
                     city.setCityName(cityObject.getString("name"));
                     city.setCityCode(cityObject.getInt("id"));
