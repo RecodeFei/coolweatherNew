@@ -10,6 +10,8 @@ import org.json.JSONObject;
 import app.coolweather.com.coolweathernew.db.City;
 import app.coolweather.com.coolweathernew.db.County;
 import app.coolweather.com.coolweathernew.db.Province;
+import app.coolweather.com.coolweathernew.gson.Weather;
+import com.google.gson.Gson;
 
 /**
  * Created by feikuang on 6/13/17.
@@ -84,5 +86,21 @@ public class Utility {
             }
         }
         return false;
+    }
+
+    /**
+     * 将返回的json数据解析成Weather实体类
+     */
+    public static Weather handleWeatherResponse(String response){
+        try{
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent,Weather.class);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }
