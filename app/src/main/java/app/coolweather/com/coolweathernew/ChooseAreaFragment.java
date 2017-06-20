@@ -25,6 +25,7 @@ import app.coolweather.com.coolweathernew.R;
 import app.coolweather.com.coolweathernew.db.City;
 import app.coolweather.com.coolweathernew.db.County;
 import app.coolweather.com.coolweathernew.db.Province;
+import app.coolweather.com.coolweathernew.gson.Weather;
 import app.coolweather.com.coolweathernew.util.HttpUtil;
 import app.coolweather.com.coolweathernew.util.Utility;
 import okhttp3.Call;
@@ -105,10 +106,17 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 }else if(currentLevel == LEVEL_COUNTY){
                     String weatherId = countyList.get(position).getWeatherId();
-                    Intent intent = new Intent(getActivity(),WeatherActivity.class);
-                    intent.putExtra("weather_id",weatherId);
-                    startActivity(intent);
-                    getActivity().finish();
+                    if (getActivity() instanceof MainActivity) {
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if(getActivity() instanceof  WeatherActivity){
+                        WeatherActivity activity = (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.swipeRefresh.setRefreshing(true);
+                        activity.requestWeather(weatherId);
+                    }
                 }
 
             }

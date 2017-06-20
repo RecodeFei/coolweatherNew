@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp">
+    <!--layout_margin边距１５，字符最边边，linerlayout里面所有的东西距离屏幕１５ｓｐ-->
 
     <TextView
         android:id="@+id/degree_text"
@@ -12,6 +13,7 @@
         android:layout_gravity="end"
         android:textColor="#fff"
         android:textSize="60sp"/>
+    <!--layout_gravity,靠右显示,相对于容器的对其方式-->
 
     <TextView
         android:id="@+id/weather_info_text"
