@@ -25,6 +25,7 @@ import java.io.IOException;
 
 import app.coolweather.com.coolweathernew.gson.Forecast;
 import app.coolweather.com.coolweathernew.gson.Weather;
+import app.coolweather.com.coolweathernew.service.AutoUpdateService;
 import app.coolweather.com.coolweathernew.util.HttpUtil;
 import app.coolweather.com.coolweathernew.util.Utility;
 import okhttp3.Call;
@@ -158,6 +159,7 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather",responseText);
                             editor.apply();
                             showWeatherInfo(weather);
+
                         }else {
                             Toast.makeText(WeatherActivity.this,"获取天气信息失败",
                                     Toast.LENGTH_LONG).show();
@@ -204,6 +206,8 @@ public class WeatherActivity extends AppCompatActivity {
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(this,AutoUpdateService.class);
+        startService(intent);
 
     }
     /**
